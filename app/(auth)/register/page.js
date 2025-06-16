@@ -22,16 +22,13 @@ export default function RegisterPage() {
     e.preventDefault();
     setLoading(true);
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/api/register`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      }
-    );
+    const res = await fetch(`/api/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
     const data = await res.json();
 
