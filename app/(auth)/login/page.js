@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import LoadingAnimation from "@/components/LoadingAnimation";
 
 export default function LoginPage() {
@@ -17,9 +18,10 @@ export default function LoginPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSubmit = async (e) => {
-    setLoading(true);
     e.preventDefault();
-    const res = await fetch("/api/login", {
+    setLoading(true);
+
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/login`, {
       method: "POST",
       body: JSON.stringify(formData),
     });
@@ -31,15 +33,17 @@ export default function LoginPage() {
     } else {
       alert(data.message || "Login failed");
     }
+
+    setLoading(false);
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 px-4">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md p-8 bg-white rounded-2xl shadow-lg space-y-6"
+        className="w-full max-w-sm p-6 bg-white rounded-xl shadow-lg space-y-6"
       >
-        <h2 className="text-3xl font-bold text-center text-gray-800">Login</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>
 
         <div className="space-y-1">
           <label htmlFor="email" className="text-sm text-gray-500 font-medium">
@@ -50,7 +54,7 @@ export default function LoginPage() {
             name="email"
             placeholder="Enter your email"
             onChange={handleChange}
-            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm"
             required
           />
         </div>
@@ -67,7 +71,7 @@ export default function LoginPage() {
             name="password"
             placeholder="Enter your password"
             onChange={handleChange}
-            className="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm"
             required
           />
         </div>
@@ -77,11 +81,21 @@ export default function LoginPage() {
         ) : (
           <button
             type="submit"
-            className="w-full py-3 text-white font-semibold rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 transition-all"
+            className="w-full py-2.5 text-white font-semibold rounded-lg bg-gradient-to-r cursor-pointer from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 transition-all text-sm"
           >
             Login
           </button>
         )}
+
+        <p className="text-sm text-center text-gray-600">
+          Don&apos;t have an account?{" "}
+          <Link
+            href="/register"
+            className="text-indigo-600 font-medium hover:underline"
+          >
+            Sign up
+          </Link>
+        </p>
       </form>
     </div>
   );

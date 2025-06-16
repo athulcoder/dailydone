@@ -1,8 +1,7 @@
 "use client";
 import MobileTodoCard from "@/components/MobileTodoCard";
 import TodoDataGrid from "@/components/TodoDataGrid";
-import TodoTable from "@/components/TodoTable";
-import WishUser from "@/components/WishUser";
+
 import { useTodos } from "@/contexts/todoProvider";
 // import { fetchUser } from "@/utils/fetchUser";
 
