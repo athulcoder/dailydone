@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import TodoDataCard from "./TodoDataCard";
 import { useTodos } from "@/contexts/todoProvider";
+import Calendar from "./Calender";
+import AddNewTodo from "./AddNewTodo";
 
 function TodoDataGrid() {
   const { todos, deleteTodo } = useTodos();
@@ -9,6 +11,12 @@ function TodoDataGrid() {
   const [pendingTodo, setPeningTodo] = useState(0);
   const [completedTodo, setCompletedTodo] = useState(0);
   const [remainingTime, setRemainingTime] = useState(0);
+  const [addNew, setAddNew] = useState(false);
+
+  //
+  const handleAddnew = () => {
+    setAddNew(true);
+  };
 
   useEffect(() => {
     let pcount = 0;
@@ -27,18 +35,20 @@ function TodoDataGrid() {
     setPeningTodo(pcount);
     setRemainingTime(rTime);
   });
+
+  if (addNew) return <AddNewTodo onClose={() => setAddNew(false)} />;
   return (
     <div className="flex justify-center gap-8   items-center lg:justify-center xl:items-start   my-3">
       <div className="grid grid-cols-2 gap-8  md:flex md:justify-around">
         <TodoDataCard name="Pending" count={pendingTodo} />
         <TodoDataCard name="Completed" count={completedTodo} />
         <TodoDataCard name="Time Needed (hours)" count={remainingTime} />
-        <TodoDataCard name="Add new" count="+" />
+        <button onClick={handleAddnew} className="cursor-pointer ">
+          <TodoDataCard name="Add new" count="+" />
+        </button>
       </div>
 
-      <div className="hidden  lg:w-[300px] xl:w-[450px]  h-[280px] bg-[#f6fdfc] rounded-2xl lg:flex xl:flex flex-col items-center justify-center shadow-lg  transition-shadow duration-300">
-        calender
-      </div>
+      <Calendar />
     </div>
   );
 }

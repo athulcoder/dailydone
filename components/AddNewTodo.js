@@ -1,22 +1,23 @@
 import { useTodos } from "@/contexts/todoProvider";
 import React, { useState } from "react";
 
-export default function EditBox({ onClose, initialData = {}, onSave }) {
-  const [title, setTitle] = useState(initialData.title || "");
-  const [description, setDesc] = useState(initialData.description || "");
-  const [timeNeed, setTime] = useState(initialData.timeNeed || "");
-  const [isDone, setIsDone] = useState(initialData.isDone || false);
+export default function AddNewTodo({ onClose }) {
+  const [title, setTitle] = useState("");
+  const [description, setDesc] = useState("");
+  const [timeNeed, setTime] = useState("");
+  const [isDone, setIsDone] = useState(false);
 
-  const { editTodo } = useTodos();
+  const { todos, addnewTodo } = useTodos();
 
-  const handleSave = () => {
-    editTodo(
-      initialData.id,
-      title,
-      description,
-      Number.parseFloat(timeNeed),
-      isDone
-    );
+  const handleAddnew = () => {
+    const newTodo = {
+      id: todos.length + 1,
+      title: title,
+      description: description,
+      timeNeed: timeNeed,
+      isDone: isDone,
+    };
+    addnewTodo(newTodo);
     onClose();
   };
 
@@ -24,7 +25,7 @@ export default function EditBox({ onClose, initialData = {}, onSave }) {
     <div className="fixed inset-0 flex items-center justify-center backdrop-blur-sm z-50">
       <div className="bg-white p-6 rounded-2xl shadow-2xl border border-gray-200 w-[90%] max-w-md space-y-5">
         <h2 className="text-xl font-semibold text-center text-gray-800">
-          📝 Edit Todo
+          Add New Todo
         </h2>
 
         <div className="space-y-4">
@@ -73,7 +74,7 @@ export default function EditBox({ onClose, initialData = {}, onSave }) {
             Cancel
           </button>
           <button
-            onClick={handleSave}
+            onClick={handleAddnew}
             className="text-sm bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
           >
             Save

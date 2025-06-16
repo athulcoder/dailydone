@@ -104,8 +104,13 @@ export function TodoProvider({ children }) {
     );
   };
 
+  const addnewTodo = (newTodo) => {
+    setTodos((prev) => [...prev, newTodo]);
+  };
   return (
-    <TodoContext.Provider value={{ todos, deleteTodo, editTodo, toggleTodo }}>
+    <TodoContext.Provider
+      value={{ todos, deleteTodo, editTodo, toggleTodo, addnewTodo }}
+    >
       {children}
     </TodoContext.Provider>
   );

@@ -1,6 +1,7 @@
 import { useTodos } from "@/contexts/todoProvider";
 import React, { useState } from "react";
 import EditBox from "./EditBox";
+import { Edit, Edit2Icon, Trash2 } from "lucide-react";
 
 function MobileTodoCard({ todo }) {
   const { id, title, description, timeNeed, isDone } = todo;
@@ -29,7 +30,10 @@ function MobileTodoCard({ todo }) {
       <p className="text-sm text-gray-600">{description}</p>
 
       <div className="flex justify-between items-center text-sm text-gray-500">
-        <span>⏰ {timeNeed}</span>
+        <span>
+          ⏰ {timeNeed}
+          {timeNeed <= 1 ? " hour" : " hours"}{" "}
+        </span>
         <span
           className={
             isDone ? "text-green-600" : "text-orange-500 cursor-pointer"
@@ -44,13 +48,13 @@ function MobileTodoCard({ todo }) {
           onClick={() => handleEdit()}
           className="text-blue-600 cursor-pointer"
         >
-          ✏️ Edit
+          <Edit />
         </button>
         <button
           onClick={() => deleteTodo(id)}
           className="text-red-600 cursor-pointer"
         >
-          ❌ Delete
+          <Trash2 />
         </button>
       </div>
     </div>
