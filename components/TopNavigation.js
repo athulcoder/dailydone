@@ -2,8 +2,8 @@ import { fetchUser } from "@/utils/fetchUser";
 
 import Image from "next/image";
 
-function TopNavigation() {
-  const { username, fullName } = fetchUser();
+async function TopNavigation() {
+  const { username, fullName } = await fetchUser();
 
   return (
     <div className="w-full flex justify-between items-center py-3 lg:justify-between xl:justify-between sticky top-0 z-50 bg-white">

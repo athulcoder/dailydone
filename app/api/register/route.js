@@ -32,7 +32,7 @@ export async function POST(req) {
 
   newUser.save();
   // token for next auth
-  const token = signToken({
+  const token = await signToken({
     _id: newUser._id,
     fullName: newUser.fullName,
     username: newUser.username,

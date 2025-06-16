@@ -33,7 +33,7 @@ export async function POST(req) {
     });
   }
 
-  const token = signToken({
+  const token = await signToken({
     fullName: user.fullName,
     username: user.username,
     email: user.email,
