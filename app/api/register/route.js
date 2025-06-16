@@ -1,57 +1,65 @@
-import { signToken } from "@/lib/auth";
-import { connectDB } from "@/lib/db";
-import { User } from "@/models/user.model";
-import bcrypt from "bcryptjs";
-import { NextResponse } from "next/server";
-
 export async function POST(req) {
-  const { fullName, username, email, password } = await req.json();
+  try {
+    const { fullName, username, email, password } = await req.json();
 
-  //   Check all fields are available
-  if (!fullName || !username || !email || !password) {
-    return Response.json({ error: "All Feilds are required" });
-  }
-  await connectDB();
+    if (!fullName || !username || !email || !password) {
+      return NextResponse.json(
+        { success: false, message: "All fields are required" },
+        { status: 400 }
+      );
+    }
 
-  let userExist = await User.findOne({
-    $or: [{ email: email }, { username: username }],
-  });
+    await connectDB();
 
-  if (userExist) return Response.json({ error: "User already Exists" });
+    let userExist = await User.findOne({
+      $or: [{ email }, { username }],
+    });
 
-  //   hash password
+    if (userExist) {
+      return NextResponse.json(
+        { success: false, message: "User already exists" },
+        { status: 400 }
+      );
+    }
 
-  const hashPassword = await bcrypt.hash(password, 10);
+    const hashPassword = await bcrypt.hash(password, 10);
 
-  const newUser = new User({
-    fullName,
-    username,
-    email,
-    password: hashPassword,
-  });
+    const newUser = new User({
+      fullName,
+      username,
+      email,
+      password: hashPassword,
+    });
 
-  newUser.save();
-  // token for next auth
-  const token = await signToken({
-    _id: newUser._id,
-    fullName: newUser.fullName,
-    username: newUser.username,
-    email: newUser.email,
-  });
-  const response = NextResponse.json(
-    {
-      success: true,
-      message: "User Created Successfully",
-      user: {
-        fullName: newUser.fullName,
-        username: newUser.username,
-        email: newUser.email,
+    await newUser.save();
+
+    const token = await signToken({
+      _id: newUser._id,
+      fullName: newUser.fullName,
+      username: newUser.username,
+      email: newUser.email,
+    });
+
+    const response = NextResponse.json(
+      {
+        success: true,
+        message: "User created successfully",
+        user: {
+          fullName: newUser.fullName,
+          username: newUser.username,
+          email: newUser.email,
+        },
       },
-    },
-    { status: 201 }
-  );
+      { status: 201 }
+    );
 
-  response.cookies.set("sessionid", token);
-
-  return response;
+    response.cookies.set("sessionid", token);
+    return response;
+  } catch (err) {
+    console.error("Register API Error:", err);
+    return NextResponse.json(
+      { success: false, message: "Something went wrong" },
+      { status: 500 }
+    );
+  }
 }
