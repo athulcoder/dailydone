@@ -11,7 +11,7 @@ function DashBoard() {
 
   const [filter, setFilter] = useState("all");
 
-  const FilterTodos = todos.filter((todo) => {
+  const FilteredTodos = todos.filter((todo) => {
     if (filter === "all") return true;
     if (filter === "pending") return !todo.isDone;
     if (filter === "completed") return todo.isDone;
@@ -53,7 +53,7 @@ function DashBoard() {
       </div>
 
       <div className=" flex flex-col justify-around gap-3 m-3  md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {FilterTodos.map((todo) => {
+        {FilteredTodos.map((todo) => {
           return <MobileTodoCard todo={todo} key={todo.id}></MobileTodoCard>;
         })}
       </div>
