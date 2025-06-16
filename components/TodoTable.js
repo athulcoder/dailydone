@@ -6,7 +6,7 @@ function TodoTable() {
   const { todos, deleteTodo } = useTodos();
 
   return (
-    <div className="w-[99%] m-auto min-h-[300px] h-fit bg-[#fcfcfc] rounded-2xl shadow-lg  transition-shadow duration-300   hide-scrollbar overflow-scroll">
+    <div className="hidden lg:block xl:block w-[99%] m-auto min-h-[300px] h-fit bg-[#fcfcfc] rounded-2xl shadow-lg  transition-shadow duration-300   hide-scrollbar overflow-scroll">
       <table className="overflow-scroll hide-scrollbar w-full">
         <thead>
           <tr className=" bg-[#c96ddb] rounded-t-md h-16 text-left">
