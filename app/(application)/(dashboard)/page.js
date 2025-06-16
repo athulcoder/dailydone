@@ -3,10 +3,14 @@ import MobileTodoCard from "@/components/MobileTodoCard";
 import TodoDataGrid from "@/components/TodoDataGrid";
 import TodoTable from "@/components/TodoTable";
 import { useTodos } from "@/contexts/todoProvider";
+// import { fetchUser } from "@/utils/fetchUser";
 
 import React, { useState } from "react";
 
 function DashBoard() {
+  // const { username, fullName } = fetchUser();
+  const fullName = "Athul Sabu";
+
   const { todos } = useTodos();
 
   const [filter, setFilter] = useState("all");
@@ -22,7 +26,7 @@ function DashBoard() {
       <div className="flex mb-3">
         <p>
           <span className="text-yellow-400 font-light text-xl lg:font-bold xl:font-bold lg:text-2xl xl:text-2xl">
-            Good morning John !
+            Good morning {fullName.split(" ")[0]}
           </span>
         </p>
       </div>
