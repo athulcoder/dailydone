@@ -11,22 +11,24 @@ export function TodoProvider({ children }) {
       const res = await fetch("/api/todos");
       const { success, data } = await res.json();
 
-      // logic for changing dueDate format
-
-      data.forEach((todo) => {
-        todo.dueDate = convertDateforUser(todo.dueDate);
-
-        return todo;
-      });
-
       setTodos(data);
     }
 
     fetchTodo();
   }, []);
 
-  const deleteTodo = (_id) => {
-    setTodos((prev) => prev.filter((todo) => todo._id !== _id));
+  const deleteTodo = async (_id) => {
+    const res = await fetch(`/api/todos?tid=${_id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const { success, message } = await res.json();
+    if (success) {
+      setTodos((prev) => prev.filter((todo) => todo._id !== _id));
+    }
   };
 
   const editTodo = async (todo) => {
@@ -42,14 +44,10 @@ export function TodoProvider({ children }) {
 
     if (success) {
       setTodos((prev) =>
-        prev.filter((todo) => {
-          if (todo._id === _id) {
-            todo = data;
-          }
-          return todo;
-        })
+        prev.map((_todo) => (_todo._id === _id ? data : _todo))
       );
     }
+    console.log(data);
   };
 
   const toggleTodo = (_id) => {

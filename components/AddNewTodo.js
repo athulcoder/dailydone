@@ -1,4 +1,5 @@
 import { useTodos } from "@/contexts/todoProvider";
+import { convertDateforUser } from "@/utils/formatDate";
 import React, { useState } from "react";
 
 export default function AddNewTodo({ onClose }) {
@@ -6,20 +7,25 @@ export default function AddNewTodo({ onClose }) {
   const [description, setDesc] = useState("");
   const [timeNeed, setTime] = useState("");
   const [isDone, setIsDone] = useState(false);
-  const [dueDate, setDueDate] = useState(false);
+  const [dueDate, setDueDate] = useState(convertDateforUser(new Date()));
+  const [error, setError] = useState("");
 
   const { addnewTodo } = useTodos();
 
   const handleAddnew = () => {
-    const newTodo = {
-      title: title,
-      description: description,
-      timeNeed: Number.parseInt(timeNeed),
-      dueDate: dueDate,
-      isDone: isDone,
-    };
-    addnewTodo(newTodo);
-    onClose();
+    if ((!title, !description, !timeNeed, !isDone, !dueDate)) {
+      setError("All fields are equired");
+    } else {
+      const newTodo = {
+        title: title,
+        description: description,
+        timeNeed: Number.parseInt(timeNeed),
+        dueDate: dueDate,
+        isDone: isDone,
+      };
+      addnewTodo(newTodo);
+      onClose();
+    }
   };
 
   return (
@@ -28,7 +34,9 @@ export default function AddNewTodo({ onClose }) {
         <h2 className="text-xl font-semibold text-center text-gray-800">
           Add New Todo
         </h2>
-
+        <span className="text-sm font-semibold text-center text-red-500 h-4">
+          {error}
+        </span>
         <div className="space-y-4">
           <label>Title</label>
           <input

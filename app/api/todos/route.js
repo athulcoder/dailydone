@@ -127,7 +127,7 @@ export async function PUT(req) {
       new: true,
       runValidators: true,
     });
-    console.log(newTodo);
+
     return NextResponse.json(
       {
         success: true,
@@ -138,5 +138,28 @@ export async function PUT(req) {
     );
   } catch (error) {
     console.log("ERROR FROM MY SIDE HAHAH , ", error);
+  }
+}
+
+// DELETE TODO
+
+export async function DELETE(req) {
+  const { searchParams } = new URL(req.url);
+  const todoId = searchParams.get("tid");
+
+  try {
+    await connectDB();
+
+    const deletedTodo = await Todo.findByIdAndDelete(todoId);
+
+    if (!deletedTodo)
+      return NextResponse.json({ success: false, message: "Todo not found" });
+
+    return NextResponse.json({
+      success: true,
+      message: "Todo deleted Successfully",
+    });
+  } catch (error) {
+    console.log("Delete request error", error);
   }
 }

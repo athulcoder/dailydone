@@ -1,16 +1,20 @@
 import { useTodos } from "@/contexts/todoProvider";
+import { convertDateforUser } from "@/utils/formatDate";
 import React, { useState } from "react";
 
-export default function EditBox({ onClose, initialData = {}, onSave }) {
+export default function EditBox({ onClose, initialData }) {
   const [title, setTitle] = useState(initialData.title || "");
   const [description, setDesc] = useState(initialData.description || "");
   const [timeNeed, setTime] = useState(initialData.timeNeed || "");
-  const [dueDate, setDueDate] = useState(initialData.timeNeed || "");
+  const [dueDate, setDueDate] = useState(
+    convertDateforUser(initialData.dueDate)
+  );
   const [isDone, setIsDone] = useState(initialData.isDone || false);
 
   const { editTodo } = useTodos();
 
   const handleSave = () => {
+    console.log(initialData.dueDate);
     const updatedTodo = {
       _id: initialData._id,
       title,
@@ -33,6 +37,7 @@ export default function EditBox({ onClose, initialData = {}, onSave }) {
         <div className="space-y-4">
           <label>Title</label>
           <input
+            required
             type="text"
             placeholder="Title"
             value={title}
@@ -41,6 +46,7 @@ export default function EditBox({ onClose, initialData = {}, onSave }) {
           />
           <label>Description</label>
           <textarea
+            required
             placeholder="Description"
             value={description}
             onChange={(e) => setDesc(e.target.value)}
@@ -49,6 +55,7 @@ export default function EditBox({ onClose, initialData = {}, onSave }) {
           />
           <label>Dute Date</label>
           <input
+            required
             type="date"
             placeholder="Dute Date"
             value={dueDate}
@@ -59,6 +66,7 @@ export default function EditBox({ onClose, initialData = {}, onSave }) {
           <label>Time need (hours)</label>
           <input
             type="number"
+            required
             placeholder="Time Needed (in hours)"
             value={timeNeed}
             onChange={(e) => setTime(e.target.value)}
