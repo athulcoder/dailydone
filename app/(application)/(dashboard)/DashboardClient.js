@@ -3,6 +3,7 @@ import MobileTodoCard from "@/components/MobileTodoCard";
 import TodoDataGrid from "@/components/TodoDataGrid";
 
 import { useTodos } from "@/contexts/todoProvider";
+import { convertDateforUser } from "@/utils/formatDate";
 // import { fetchUser } from "@/utils/fetchUser";
 
 import React, { useState } from "react";
@@ -11,13 +12,30 @@ function DashBoardClient({ user }) {
   // const { username, fullName } = fetchUser();
 
   const { todos } = useTodos();
+  const [selectedDate, setSelectedDate] = useState(
+    convertDateforUser(new Date() || "2020-12-02")
+  );
 
   const [filter, setFilter] = useState("all");
 
+  const handleSelectedDate = (e) => {
+    setSelectedDate(e.target.value);
+  };
+
   const FilteredTodos = todos.filter((todo) => {
-    if (filter === "all") return true;
-    if (filter === "pending") return !todo.isDone;
-    if (filter === "completed") return todo.isDone;
+    const matchesStatus =
+      filter === "all"
+        ? true
+        : filter === "completed"
+        ? todo.isDone
+        : !todo.isDone;
+
+    const matchesDate =
+      selectedDate === ""
+        ? true
+        : selectedDate === convertDateforUser(todo.dueDate);
+
+    return matchesStatus && matchesDate;
   });
   return (
     <div className="">
@@ -35,15 +53,19 @@ function DashBoardClient({ user }) {
 
       {/* Cards */}
 
-      <div className="flex flex-col">
+      <div>
         <TodoDataGrid />
 
         {/* Task Cards */}
         <div className="flex gap-4 mx-3 ">
-          <select className="ring-1 ring-[#d3d3d3] p-2 rounded-2xl">
-            <option>Today</option>
-            <option>Tommorow</option>
-          </select>
+          <div className="ring-1 ring-[#d3d3d3] p-2 rounded-2xl">
+            <input
+              type="date"
+              onChange={handleSelectedDate}
+              className="border-0 outline-0"
+              value={selectedDate}
+            ></input>
+          </div>
 
           <select
             className="ring-1 ring-[#d3d3d3] p-2 rounded-2xl"
