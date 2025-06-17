@@ -48,13 +48,10 @@ function DashBoardClient({ user }) {
           </span>
         </p>
       </div>
-
       <span className="text-lg font-light font-sans text-[#989898] ">
         Tasks
       </span>
-
       {/* Cards */}
-
       <div>
         <TodoDataGrid />
 
@@ -79,7 +76,7 @@ function DashBoardClient({ user }) {
           </select>
         </div>
 
-        <div className=" flex flex-col justify-around gap-3 m-3  md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <div className=" flex flex-col justify-around gap-3 m-3  md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
           {loading ? (
             <>
               <TodoSkeleton></TodoSkeleton> <TodoSkeleton></TodoSkeleton>

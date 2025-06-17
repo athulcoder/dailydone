@@ -8,9 +8,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <div className="flex h-screen w-full">
+        <div className="flex h-screen w-full gap-3">
           {/* Left */}
-          <div className="w-[16%] sm:w-[10%] md:w-[8%] lg:w-[15%] xl:w-[12%]   h-screen p-2">
+          <div className="w-[16%] sm:w-[10%] md:w-[8%] lg:w-[15%] xl:w-[12%] h-screen p-2 shadow-[4px_0_10px_-4px_rgba(0,0,0,0.1)] bg-[#fbfbfb]">
             <Link
               href="/"
               className="flex gap-3 items-center justify-center lg:justify-start xl:justify-start"
@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
                 height={50}
                 className="rounded-full"
               />
-              <span className="text-sm text-black hidden lg:block xl:block ">
+              <span className="text-md font-bold text-black hidden lg:block xl:block ">
                 DailyDone
               </span>
             </Link>
