@@ -30,7 +30,7 @@ export async function GET(req) {
       { status: 200 }
     );
   } catch (error) {
-    console.log("ERROR FROM MY SIDE , ", error);
+    console.log("ERROR FROM MY SIDE HAHAH , ", error);
   }
 }
 

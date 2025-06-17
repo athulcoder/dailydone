@@ -9,9 +9,10 @@ export function TodoProvider({ children }) {
   useEffect(() => {
     async function fetchTodo() {
       const res = await fetch("/api/todos");
-      const { data } = await res.json();
+      const { success, data } = await res.json();
 
       // logic for changing dueDate format
+
       data.forEach((todo) => {
         todo.dueDate = convertDateforUser(todo.dueDate);
 
@@ -33,13 +34,13 @@ export function TodoProvider({ children }) {
     const res = await fetch(`/api/todos?tid=${_id}`, {
       method: "PUT",
       headers: {
-        "Conten-Type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedTodo),
     });
-    const data = await res.json();
+    const { success, data } = await res.json();
 
-    if (data.success) {
+    if (success) {
       setTodos((prev) =>
         prev.filter((todo) => {
           if (todo._id === _id) {
@@ -63,13 +64,13 @@ export function TodoProvider({ children }) {
     const res = await fetch("/api/todos", {
       method: "POST",
       headers: {
-        "Conten-Type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(newTodo),
     });
-    const { data } = await res.json();
+    const { success, data } = await res.json();
 
-    if (data.success) {
+    if (success) {
       setTodos((prev) => [...prev, data]);
     }
   };

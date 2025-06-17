@@ -16,7 +16,7 @@ function MobileTodoCard({ todo }) {
   if (editBoxOpen)
     return <EditBox onClose={() => setEditBoxOpen(false)} initialData={todo} />;
   return (
-    <div className="bg-white p-4 rounded-xl shadow border border-gray-200 space-y-2 ">
+    <div className="bg-white p-4 rounded-xl shadow border border-gray-200 space-y-2">
       <div className="flex justify-between items-center">
         <h2 className="text-lg font-semibold">{title}</h2>
         <input
