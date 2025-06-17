@@ -5,9 +5,18 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import LoadingAnimation from "@/components/LoadingAnimation";
 import Image from "next/image";
+import { handleUsernameCheck } from "@/utils/usernameCheck";
+import {
+  BadgeAlertIcon,
+  BadgeXIcon,
+  CheckCircle2,
+  OctagonX,
+  TriangleAlert,
+} from "lucide-react";
 
 export default function RegisterPage() {
   const router = useRouter();
+  const [usernameStatus, setUsernameStatus] = useState(3);
   const [formData, setFormData] = useState({
     fullName: "",
     username: "",
@@ -16,14 +25,31 @@ export default function RegisterPage() {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const handleChange = (e) =>
+  const handleChange = async (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    if (e.target.name == "username") {
+      const uname = e.target.value;
+
+      if (uname.length > 2) {
+        const data = await handleUsernameCheck(uname);
+        if (data.success) setUsernameStatus(1);
+        else setUsernameStatus(2);
+      } else {
+        setUsernameStatus(3);
+      }
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     if (formData.password.length < 6) {
       setError("weak password used");
+      setLoading(false);
+    }
+    if (formData.username.length < 3) {
+      setError("username should have atleast 3 characters");
       setLoading(false);
     } else {
       const res = await fetch(`/api/register`, {
@@ -97,9 +123,22 @@ export default function RegisterPage() {
             <div className="space-y-1">
               <label
                 htmlFor="username"
-                className="text-sm text-gray-500 font-medium"
+                className="text-sm text-gray-500 font-medium flex gap-3 items-center"
               >
                 Username
+                {usernameStatus === 1 ? (
+                  <span className="text-green-700 flex gap-1 font-sans items-center text-xs">
+                    {" "}
+                    <CheckCircle2 className="w-4" /> username available
+                  </span>
+                ) : usernameStatus === 3 ? (
+                  <span className="hidden">hi</span>
+                ) : (
+                  <span className="text-red-400 font-sans flex gap-1 items-center text-xs">
+                    {" "}
+                    <OctagonX className="w-4" /> username taken
+                  </span>
+                )}
               </label>
               <input
                 type="text"

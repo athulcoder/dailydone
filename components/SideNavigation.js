@@ -1,9 +1,12 @@
+import { handlelogout } from "@/utils/logout";
 import {
   CirclePlus,
   Edit2,
   Edit3,
   Home,
   House,
+  LogOut,
+  LogOutIcon,
   Settings,
   User,
 } from "lucide-react";
@@ -15,11 +18,7 @@ const navlinks = [
     href: "/",
     icon: <House />,
   },
-  // {
-  //   title: "Profile",
-  //   href: "/profile",
-  //   icon: <User />,
-  // },
+
   // {
   //   title: "Settings",
   //   href: "/settings",
@@ -49,6 +48,15 @@ function SideNavigation() {
           </Link>
         );
       })}
+
+      <button
+        onClick={handlelogout}
+        className="flex gap-2 hover:bg-[#f4f3f3] w-full p-3 rounded-2xl cursor-pointer "
+        key="logout"
+      >
+        <LogOutIcon />
+        <span className="hidden lg:block xl:block">Logout</span>
+      </button>
     </nav>
   );
 }
