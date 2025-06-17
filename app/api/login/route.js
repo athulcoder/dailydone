@@ -6,10 +6,12 @@ import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
-    const { email, password } = await req.json();
+    const { email_username, password } = await req.json();
 
     await connectDB();
-    const user = await User.findOne({ email });
+    const user = await User.findOne({
+      $or: [{ email: email_username }, { username: email_username }],
+    });
 
     if (!user) {
       return NextResponse.json(

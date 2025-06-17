@@ -10,7 +10,7 @@ export default function LoginPage() {
   const router = useRouter();
 
   const [formData, setFormData] = useState({
-    email: "",
+    email_username: "",
     password: "",
   });
   const [loading, setLoading] = useState(false);
@@ -85,12 +85,12 @@ export default function LoginPage() {
                 htmlFor="email"
                 className="text-sm text-gray-500 font-medium"
               >
-                Email
+                username/Email
               </label>
               <input
-                type="email"
-                name="email"
-                placeholder="Enter your email"
+                type="text"
+                name="email_username"
+                placeholder="Enter username or email"
                 onChange={handleChange}
                 className="w-full border border-gray-300 p-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 text-sm"
                 required
