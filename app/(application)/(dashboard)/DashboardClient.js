@@ -1,6 +1,7 @@
 "use client";
 import MobileTodoCard from "@/components/MobileTodoCard";
 import TodoDataGrid from "@/components/TodoDataGrid";
+import TodoSkeleton from "@/components/TodoSkeleton";
 
 import { useTodos } from "@/contexts/todoProvider";
 import { convertDateforUser } from "@/utils/formatDate";
@@ -12,7 +13,7 @@ import React, { useState } from "react";
 function DashBoardClient({ user }) {
   // const { username, fullName } = fetchUser();
 
-  const { todos } = useTodos();
+  const { todos, loading } = useTodos();
   const [selectedDate, setSelectedDate] = useState(
     convertDateforUser(new Date() || "")
   );
@@ -79,7 +80,12 @@ function DashBoardClient({ user }) {
         </div>
 
         <div className=" flex flex-col justify-around gap-3 m-3  md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {FilteredTodos.length > 0 ? (
+          {loading ? (
+            <>
+              <TodoSkeleton></TodoSkeleton> <TodoSkeleton></TodoSkeleton>
+              <TodoSkeleton></TodoSkeleton> <TodoSkeleton></TodoSkeleton>
+            </>
+          ) : FilteredTodos.length > 0 ? (
             FilteredTodos.map((todo) => (
               <MobileTodoCard key={todo._id} todo={todo}></MobileTodoCard>
             ))

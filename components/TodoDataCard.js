@@ -1,6 +1,10 @@
+import { useTodos } from "@/contexts/todoProvider";
 import React from "react";
+import TodoDataCardSkeleton from "./TodoDataCardSkeleton";
 
 function TodoDataCard({ name, count }) {
+  const { loading } = useTodos();
+  if (loading) return <TodoDataCardSkeleton />;
   return (
     <div className="w-[120px] h-[120px] rounded-2xl flex flex-col items-center justify-center shadow-md hover:shadow-xl transition duration-300 ease-in-out bg-gradient-to-br from-[#fdfbfb] to-[#ebedee] border border-gray-100">
       <span className="text-xl font-extrabold text-indigo-600">{count}</span>
