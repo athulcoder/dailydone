@@ -13,7 +13,7 @@ export default function LoginPage() {
     password: "",
   });
   const [loading, setLoading] = useState(false);
-
+  const [error, setError] = useState("");
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -34,7 +34,7 @@ export default function LoginPage() {
     if (res.ok) {
       router.push("/");
     } else {
-      alert(data.message || "Login failed");
+      setError(data.message);
     }
 
     setLoading(false);
@@ -47,6 +47,8 @@ export default function LoginPage() {
         className="w-full max-w-sm p-6 bg-white rounded-xl shadow-lg space-y-6"
       >
         <h2 className="text-2xl font-bold text-center text-gray-800">Login</h2>
+
+        <h2 className="text-sm font-light text-center text-red-500">{error}</h2>
 
         <div className="space-y-1">
           <label htmlFor="email" className="text-sm text-gray-500 font-medium">

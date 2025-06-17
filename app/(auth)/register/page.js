@@ -14,7 +14,7 @@ export default function RegisterPage() {
     password: "",
   });
   const [loading, setLoading] = useState(false);
-
+  const [error, setError] = useState("");
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -35,7 +35,7 @@ export default function RegisterPage() {
     if (res.ok) {
       router.push("/");
     } else {
-      alert(data.message || "Registration failed");
+      setError(data.message);
     }
 
     setLoading(false);
@@ -50,7 +50,9 @@ export default function RegisterPage() {
         <h2 className="text-2xl font-bold text-center text-gray-800">
           Register
         </h2>
-
+        <span className="text-sm font-light text-center text-red-500">
+          {error}
+        </span>
         <div className="space-y-1">
           <label
             htmlFor="fullName"

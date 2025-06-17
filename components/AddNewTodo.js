@@ -6,15 +6,16 @@ export default function AddNewTodo({ onClose }) {
   const [description, setDesc] = useState("");
   const [timeNeed, setTime] = useState("");
   const [isDone, setIsDone] = useState(false);
+  const [dueDate, setDueDate] = useState(false);
 
-  const { todos, addnewTodo } = useTodos();
+  const { addnewTodo } = useTodos();
 
   const handleAddnew = () => {
     const newTodo = {
-      id: todos.length + 1,
       title: title,
       description: description,
-      timeNeed: timeNeed,
+      timeNeed: Number.parseInt(timeNeed),
+      dueDate: dueDate,
       isDone: isDone,
     };
     addnewTodo(newTodo);
@@ -44,6 +45,14 @@ export default function AddNewTodo({ onClose }) {
             onChange={(e) => setDesc(e.target.value)}
             className="w-full border border-gray-300 p-2 rounded-md text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
             rows={3}
+          />
+          <label>Dute Date</label>
+          <input
+            type="date"
+            placeholder="Dute Date"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+            className="w-full border border-gray-300 p-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
           <label>Time need (hours)</label>

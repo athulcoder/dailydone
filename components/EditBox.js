@@ -5,18 +5,21 @@ export default function EditBox({ onClose, initialData = {}, onSave }) {
   const [title, setTitle] = useState(initialData.title || "");
   const [description, setDesc] = useState(initialData.description || "");
   const [timeNeed, setTime] = useState(initialData.timeNeed || "");
+  const [dueDate, setDueDate] = useState(initialData.timeNeed || "");
   const [isDone, setIsDone] = useState(initialData.isDone || false);
 
   const { editTodo } = useTodos();
 
   const handleSave = () => {
-    editTodo(
-      initialData.id,
+    const updatedTodo = {
+      _id: initialData._id,
       title,
       description,
-      Number.parseFloat(timeNeed),
-      isDone
-    );
+      timeNeed: Number.parseInt(timeNeed),
+      dueDate,
+      isDone,
+    };
+    editTodo(updatedTodo);
     onClose();
   };
 
@@ -43,6 +46,14 @@ export default function EditBox({ onClose, initialData = {}, onSave }) {
             onChange={(e) => setDesc(e.target.value)}
             className="w-full border border-gray-300 p-2 rounded-md text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
             rows={3}
+          />
+          <label>Dute Date</label>
+          <input
+            type="date"
+            placeholder="Dute Date"
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
+            className="w-full border border-gray-300 p-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
 
           <label>Time need (hours)</label>

@@ -1,111 +1,77 @@
 "use client";
-import React, { createContext, useState, useContext } from "react";
+import { convertDateforUser } from "@/utils/formatDate";
+import React, { createContext, useState, useContext, useEffect } from "react";
 const TodoContext = createContext();
 
-const todos_array = [
-  {
-    id: 1,
-    title: "Buy groceries",
-    description: "Milk, bread, eggs, and fruits from the supermarket.",
-    timeNeed: 1,
-    isDone: false,
-  },
-  {
-    id: 2,
-    title: "Team meeting",
-    description: "Project sync with the development team on Zoom.",
-    timeNeed: 2,
-    isDone: true,
-  },
-  {
-    id: 3,
-    title: "Workout",
-    description: "Cardio session at the gym for 45 minutes.",
-    timeNeed: 1,
-    isDone: true,
-  },
-  {
-    id: 4,
-    title: "Call with client",
-    description: "Discuss project requirements and timelines.",
-    timeNeed: 1,
-    isDone: false,
-  },
-  {
-    id: 5,
-    title: "Code review",
-    description: "Review pull requests and leave comments.",
-    timeNeed: 1,
-    isDone: false,
-  },
-  {
-    id: 6,
-    title: "Write blog post",
-    description: "Draft blog post about React performance tips.",
-    timeNeed: 2,
-    isDone: false,
-  },
-  {
-    id: 7,
-    title: "Laundry",
-    description: "Wash and fold clothes.",
-    timeNeed: 1,
-    isDone: true,
-  },
-  {
-    id: 8,
-    title: "Read book",
-    description: "Read 30 pages of 'Atomic Habits'.",
-    timeNeed: 1,
-    isDone: false,
-  },
-  {
-    id: 9,
-    title: "Dinner with family",
-    description: "Try out new restaurant nearby.",
-    timeNeed: 2,
-    isDone: true,
-  },
-  {
-    id: 10,
-    title: "Plan next day",
-    description: "Set goals and tasks for tomorrow.",
-    timeNeed: 1,
-    isDone: false,
-  },
-];
-
 export function TodoProvider({ children }) {
-  const [todos, setTodos] = useState(todos_array);
+  const [todos, setTodos] = useState([]);
 
-  const deleteTodo = (id) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id));
-  };
+  useEffect(() => {
+    async function fetchTodo() {
+      const res = await fetch("/api/todos");
+      const { data } = await res.json();
 
-  const editTodo = (id, title, description, timeNeed, isDone) => {
-    setTodos((prev) =>
-      prev.filter((todo) => {
-        if (todo.id === id) {
-          todo.title = title;
-          todo.description = description;
-          todo.timeNeed = timeNeed;
-          todo.isDone = isDone;
-        }
+      // logic for changing dueDate format
+      data.forEach((todo) => {
+        todo.dueDate = convertDateforUser(todo.dueDate);
+
         return todo;
-      })
-    );
+      });
+
+      setTodos(data);
+    }
+
+    fetchTodo();
+  }, []);
+
+  const deleteTodo = (_id) => {
+    setTodos((prev) => prev.filter((todo) => todo._id !== _id));
   };
 
-  const toggleTodo = (id) => {
+  const editTodo = async (todo) => {
+    const { _id, ...updatedTodo } = todo;
+    const res = await fetch(`/api/todos?tid=${_id}`, {
+      method: "PUT",
+      headers: {
+        "Conten-Type": "application/json",
+      },
+      body: JSON.stringify(updatedTodo),
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      setTodos((prev) =>
+        prev.filter((todo) => {
+          if (todo._id === _id) {
+            todo = data;
+          }
+          return todo;
+        })
+      );
+    }
+  };
+
+  const toggleTodo = (_id) => {
     setTodos((prev) =>
       prev.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+        todo._id === _id ? { ...todo, isDone: !todo.isDone } : todo
       )
     );
   };
 
-  const addnewTodo = (newTodo) => {
-    setTodos((prev) => [...prev, newTodo]);
+  const addnewTodo = async (newTodo) => {
+    const res = await fetch("/api/todos", {
+      method: "POST",
+      headers: {
+        "Conten-Type": "application/json",
+      },
+      body: JSON.stringify(newTodo),
+    });
+    const { data } = await res.json();
+
+    if (data.success) {
+      setTodos((prev) => [...prev, data]);
+    }
   };
   return (
     <TodoContext.Provider

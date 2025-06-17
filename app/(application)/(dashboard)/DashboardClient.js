@@ -59,7 +59,7 @@ function DashBoardClient({ user }) {
       <div className=" flex flex-col justify-around gap-3 m-3  md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {FilteredTodos.length > 0 ? (
           FilteredTodos.map((todo) => (
-            <MobileTodoCard key={todo.id} todo={todo}></MobileTodoCard>
+            <MobileTodoCard key={todo._id} todo={todo}></MobileTodoCard>
           ))
         ) : (
           <div className="flex items-center justify-center h-64 text-gray-500 text-lg">

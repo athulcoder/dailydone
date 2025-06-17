@@ -4,7 +4,7 @@ import EditBox from "./EditBox";
 import { Edit, Edit2Icon, Trash2 } from "lucide-react";
 
 function MobileTodoCard({ todo }) {
-  const { id, title, description, timeNeed, isDone } = todo;
+  const { _id, title, description, timeNeed, isDone } = todo;
   const { deleteTodo, toggleTodo } = useTodos();
 
   const [editBoxOpen, setEditBoxOpen] = useState(false);
@@ -22,7 +22,7 @@ function MobileTodoCard({ todo }) {
         <input
           type="checkbox"
           checked={isDone}
-          onChange={() => toggleTodo(id)}
+          onChange={() => toggleTodo(_id)}
           className="w-5 h-5 accent-green-600"
         />
       </div>
@@ -51,7 +51,7 @@ function MobileTodoCard({ todo }) {
           <Edit />
         </button>
         <button
-          onClick={() => deleteTodo(id)}
+          onClick={() => deleteTodo(_id)}
           className="text-red-600 cursor-pointer"
         >
           <Trash2 />
