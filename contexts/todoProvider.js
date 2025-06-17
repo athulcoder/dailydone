@@ -5,6 +5,7 @@ const TodoContext = createContext();
 
 export function TodoProvider({ children }) {
   const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchTodo() {
@@ -12,6 +13,7 @@ export function TodoProvider({ children }) {
       const { success, data } = await res.json();
 
       setTodos(data);
+      setLoading(false);
     }
 
     fetchTodo();
@@ -82,7 +84,7 @@ export function TodoProvider({ children }) {
   };
   return (
     <TodoContext.Provider
-      value={{ todos, deleteTodo, editTodo, toggleTodo, addnewTodo }}
+      value={{ todos, deleteTodo, editTodo, toggleTodo, addnewTodo, loading }}
     >
       {children}
     </TodoContext.Provider>

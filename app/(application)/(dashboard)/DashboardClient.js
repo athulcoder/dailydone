@@ -4,6 +4,7 @@ import TodoDataGrid from "@/components/TodoDataGrid";
 
 import { useTodos } from "@/contexts/todoProvider";
 import { convertDateforUser } from "@/utils/formatDate";
+import { wishUser } from "@/utils/wishUser";
 // import { fetchUser } from "@/utils/fetchUser";
 
 import React, { useState } from "react";
@@ -13,7 +14,7 @@ function DashBoardClient({ user }) {
 
   const { todos } = useTodos();
   const [selectedDate, setSelectedDate] = useState(
-    convertDateforUser(new Date() || "2020-12-02")
+    convertDateforUser(new Date() || "")
   );
 
   const [filter, setFilter] = useState("all");
@@ -41,8 +42,8 @@ function DashBoardClient({ user }) {
     <div className="">
       <div className="flex mb-3">
         <p>
-          <span className="text-blue-600 font-light text-xl lg:font-bold xl:font-bold lg:text-2xl xl:text-2xl">
-            Hi {user.fullName?.split(" ")[0] || "Guest"}
+          <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent font-bold text-xl lg:text-2xl xl:text-2xl">
+            {wishUser(user.fullName)}
           </span>
         </p>
       </div>

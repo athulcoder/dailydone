@@ -6,14 +6,14 @@ export default function AddNewTodo({ onClose }) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [timeNeed, setTime] = useState("");
-  const [isDone, setIsDone] = useState(false);
+
   const [dueDate, setDueDate] = useState(convertDateforUser(new Date()));
   const [error, setError] = useState("");
 
   const { addnewTodo } = useTodos();
 
   const handleAddnew = () => {
-    if ((!title, !description, !timeNeed, !isDone, !dueDate)) {
+    if ((!title, !description, !timeNeed, !dueDate)) {
       setError("All fields are equired");
     } else {
       const newTodo = {
@@ -21,7 +21,7 @@ export default function AddNewTodo({ onClose }) {
         description: description,
         timeNeed: Number.parseInt(timeNeed),
         dueDate: dueDate,
-        isDone: isDone,
+        isDone: false,
       };
       addnewTodo(newTodo);
       onClose();
@@ -71,16 +71,6 @@ export default function AddNewTodo({ onClose }) {
             onChange={(e) => setTime(e.target.value)}
             className="w-full border border-gray-300 p-2 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
-
-          <label className="flex items-center gap-3 text-sm font-medium text-gray-700">
-            <input
-              type="checkbox"
-              checked={isDone}
-              onChange={(e) => setIsDone(e.target.checked)}
-              className="w-5 h-5 accent-green-600"
-            />
-            Mark as done
-          </label>
         </div>
 
         <div className="flex justify-end gap-3 pt-2">

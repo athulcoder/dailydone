@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 export function convertDateforUser(db_date) {
   let formattedDate = new Date(db_date);
 
@@ -8,4 +10,8 @@ export function convertDateforUser(db_date) {
 export function convertDateforDB(user_date) {
   const formatedDate = new Date(user_date);
   return formatedDate;
+}
+
+export function getTodaysDate() {
+  return dayjs().format("DD MMM YYYY ").toUpperCase();
 }

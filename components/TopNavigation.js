@@ -1,4 +1,5 @@
 import { fetchUser } from "@/utils/fetchUser";
+import { getTodaysDate } from "@/utils/formatDate";
 
 import Image from "next/image";
 
@@ -7,9 +8,10 @@ async function TopNavigation() {
 
   return (
     <div className="w-full flex justify-between items-center py-3 lg:justify-between xl:justify-between sticky top-0 z-50 bg-white">
-      <span className="hidden font-bold text-black font-sans lg:block xl:block text-2xl">
-        24 October
+      <span className="hidden font-bold font-sans lg:block xl:block text-2xl bg-gradient-to-r from-rose-500 via-fuchsia-500 to-indigo-500 bg-clip-text text-transparent">
+        {getTodaysDate()}
       </span>
+
       <span className=" font-bold text-black font-sans lg:hidden xl:hidden text-xl">
         DailyDone
       </span>
