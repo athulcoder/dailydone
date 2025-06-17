@@ -50,12 +50,20 @@ export function TodoProvider({ children }) {
     console.log(data);
   };
 
-  const toggleTodo = (_id) => {
+  const toggleTodo = async (_id, isDone) => {
     setTodos((prev) =>
       prev.map((todo) =>
         todo._id === _id ? { ...todo, isDone: !todo.isDone } : todo
       )
     );
+    const res = await fetch(`/api/todos?tid=${_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ isDone: !isDone }),
+    });
+    const { success, data } = await res.json();
   };
 
   const addnewTodo = async (newTodo) => {

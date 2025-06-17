@@ -163,3 +163,26 @@ export async function DELETE(req) {
     console.log("Delete request error", error);
   }
 }
+
+// SINGLE DATA UPDATE
+
+export async function PATCH(req) {
+  const { searchParams } = new URL(req.url);
+  const todoId = searchParams.get("tid");
+
+  const { isDone } = await req.json();
+
+  try {
+    await connectDB();
+
+    await Todo.findByIdAndUpdate(
+      todoId,
+      { isDone },
+      { new: true, runValidators: true }
+    );
+
+    return NextResponse.json({ success: true, message: "Todo marked" });
+  } catch (error) {
+    console.log("error in patch", error);
+  }
+}

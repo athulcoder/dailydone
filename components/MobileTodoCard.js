@@ -1,7 +1,13 @@
 import { useTodos } from "@/contexts/todoProvider";
 import React, { useState } from "react";
 import EditBox from "./EditBox";
-import { Edit, Edit2Icon, Trash2 } from "lucide-react";
+import {
+  Clock7Icon,
+  Edit,
+  Edit2Icon,
+  LucideAlarmClockCheck,
+  Trash2,
+} from "lucide-react";
 
 function MobileTodoCard({ todo }) {
   const { _id, title, description, timeNeed, isDone } = todo;
@@ -22,7 +28,7 @@ function MobileTodoCard({ todo }) {
         <input
           type="checkbox"
           checked={isDone}
-          onChange={() => toggleTodo(_id)}
+          onChange={() => toggleTodo(_id, isDone)}
           className="w-5 h-5 accent-green-600"
         />
       </div>
@@ -30,8 +36,8 @@ function MobileTodoCard({ todo }) {
       <p className="text-sm text-gray-600">{description}</p>
 
       <div className="flex justify-between items-center text-sm text-gray-500">
-        <span>
-          ⏰ {timeNeed}
+        <span className="flex gap-2 items-center">
+          <LucideAlarmClockCheck className="text-green-700" /> {timeNeed}
           {timeNeed <= 1 ? " hour" : " hours"}{" "}
         </span>
         <span
