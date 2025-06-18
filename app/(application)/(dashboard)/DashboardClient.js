@@ -40,7 +40,7 @@ function DashBoardClient({ user }) {
     return matchesStatus && matchesDate;
   });
   return (
-    <div className="max-lg:pb-[60px] pt-[80px] ">
+    <div className="">
       <div className="flex mb-3 px-4">
         <p>
           <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent font-bold text-xl lg:text-2xl xl:text-2xl">

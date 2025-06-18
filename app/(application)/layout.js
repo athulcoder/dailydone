@@ -18,7 +18,7 @@ export const metadata = {
     "Indian Productivity App",
     "Task Manager",
     "Made in India",
-    "Athul Sabu",
+
     "Next.js 15",
   ],
   authors: [
@@ -84,7 +84,7 @@ export default function RootLayout({ children }) {
       {/* Right */}
       <div className="max-lg:flex max-lg:flex-col max-lg:justify-between  w-full lg:w-[85%] xl:w-[88%]  h-screen lg:overflow-scroll xl:overflow-scroll ">
         <TopNavigation />
-        {children}
+        <div className="max-lg:pb-[60px] pt-[80px] ">{children}</div>
       </div>
     </div>
   );
