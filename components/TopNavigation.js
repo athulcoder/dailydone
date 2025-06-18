@@ -12,9 +12,18 @@ async function TopNavigation() {
         {getTodaysDate()}
       </span> */}
 
-      <span className=" font-bold text-black font-sans lg:hidden xl:hidden text-xl">
-        DailyDone
-      </span>
+      <div className="flex gap-1 items-center">
+        <Image
+          src="/logo.png"
+          alt=""
+          width={40}
+          height={40}
+          className="rounded-full  min-lg:hidden"
+        />
+        <span className=" font-bold text-black font-sans lg:hidden xl:hidden text-xl">
+          DailyDone
+        </span>
+      </div>
 
       <div className="flex gap-1 min-lg:mr-5">
         <p className="flex flex-col ">
