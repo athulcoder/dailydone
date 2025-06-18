@@ -59,7 +59,7 @@ export default function RootLayout({ children }) {
   return (
     <div className="flex  flex-col-reverse  lg:flex-row xl:flex-row h-screen w-full lg:gap-3 xl:gap-3  ">
       {/* Left  in large screens and it is bottom in mobile devices */}
-      <div className="  max-lg:z-50 max-lg:items-center max-lg:justify-center max-lg:flex max-lg:flex-row-reverse max-lg:w-full max-lg:h-[60px] max-lg:fixed max-lg:shadow-[0_-4px_6px_-4px_rgba(0,0,0,0.1)] lg:block xl:block lg:w-[15%] xl:w-[12%] lg:h-screen xl:h-screen p-2 shadow-[4px_0_10px_-4px_rgba(0,0,0,0.1)] bg-[#fbfbfb]">
+      <div className="  max-lg:items-center  max-lg:justify-center max-lg:flex max-lg:flex-row-reverse max-lg:w-full max-lg:h-[60px] max-lg:fixed max-lg:bottom-0 max-lg:left-0 max-lg:z-50 max-lg:shadow-[0_-4px_6px_-4px_rgba(0,0,0,0.1)] lg:block xl:block lg:w-[15%] xl:w-[12%] lg:h-screen xl:h-screen p-2 shadow-[4px_0_10px_-4px_rgba(0,0,0,0.1)] bg-[#fbfbfb]">
         <Link
           href="/"
           className="flex gap-3 items-center justify-center lg:justify-start xl:justify-start"
@@ -80,7 +80,7 @@ export default function RootLayout({ children }) {
       </div>
 
       {/* Right */}
-      <div className="max-lg:flex max-lg:flex-col max-lg:justify-between  w-full lg:w-[85%] xl:w-[88%]  h-screen lg:overflow-scroll xl:overflow-scroll">
+      <div className="max-lg:flex max-lg:flex-col max-lg:justify-between  w-full lg:w-[85%] xl:w-[88%]  h-screen lg:overflow-scroll xl:overflow-scroll ">
         <TopNavigation />
         {children}
       </div>
