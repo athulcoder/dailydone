@@ -57,37 +57,33 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body>
-        <div className="flex h-screen w-full gap-3">
-          {/* Left */}
-          <div className="w-[16%] sm:w-[10%] md:w-[8%] lg:w-[15%] xl:w-[12%] h-screen p-2 shadow-[4px_0_10px_-4px_rgba(0,0,0,0.1)] bg-[#fbfbfb]">
-            <Link
-              href="/"
-              className="flex gap-3 items-center justify-center lg:justify-start xl:justify-start"
-            >
-              <Image
-                src="/logo.png"
-                alt=""
-                width={50}
-                height={50}
-                className="rounded-full"
-              />
-              <span className="text-md font-bold text-black hidden lg:block xl:block ">
-                DailyDone
-              </span>
-            </Link>
+    <div className="flex  flex-col-reverse  lg:flex-row xl:flex-row h-screen w-full lg:gap-3 xl:gap-3  ">
+      {/* Left  in large screens and it is bottom in mobile devices */}
+      <div className="  max-lg:z-50 max-lg:items-center max-lg:justify-center max-lg:flex max-lg:flex-row-reverse max-lg:w-full max-lg:h-[60px] max-lg:fixed max-lg:shadow-[0_-4px_6px_-4px_rgba(0,0,0,0.1)] lg:block xl:block lg:w-[15%] xl:w-[12%] lg:h-screen xl:h-screen p-2 shadow-[4px_0_10px_-4px_rgba(0,0,0,0.1)] bg-[#fbfbfb]">
+        <Link
+          href="/"
+          className="flex gap-3 items-center justify-center lg:justify-start xl:justify-start"
+        >
+          <Image
+            src="/logo.png"
+            alt=""
+            width={40}
+            height={40}
+            className="rounded-full hidden min-lg:block"
+          />
+          <span className="text-md font-bold text-black hidden lg:block xl:block ">
+            DailyDone
+          </span>
+        </Link>
 
-            <SideNavigation />
-          </div>
+        <SideNavigation />
+      </div>
 
-          {/* Right */}
-          <div className="w-[84%] sm:w-[90%] md:w-[92%] lg:w-[85%] xl:w-[88%]  h-screen overflow-scroll">
-            <TopNavigation />
-            {children}
-          </div>
-        </div>
-      </body>
-    </html>
+      {/* Right */}
+      <div className="max-lg:flex max-lg:flex-col max-lg:justify-between  w-full lg:w-[85%] xl:w-[88%]  h-screen lg:overflow-scroll xl:overflow-scroll">
+        <TopNavigation />
+        {children}
+      </div>
+    </div>
   );
 }

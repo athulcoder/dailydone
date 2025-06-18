@@ -9,6 +9,7 @@ import {
   LogOutIcon,
   Settings,
   User,
+  UserCircle2,
 } from "lucide-react";
 
 import Link from "next/link";
@@ -19,23 +20,28 @@ const navlinks = [
     icon: <House />,
   },
 
-  // {
-  //   title: "Settings",
-  //   href: "/settings",
-  //   icon: <Settings />,
-  // },
-  // {
-  //   title: "Add new",
-  //   href: "/",
-  //   icon: <CirclePlus />,
-  // },
+  {
+    title: "Add new",
+    href: "/",
+    icon: <CirclePlus />,
+  },
+  {
+    title: "Settings",
+    href: "/settings",
+    icon: <Settings />,
+  },
+  {
+    title: "Profile",
+    href: "/profile",
+    icon: <UserCircle2 />,
+  },
 ];
 
 import React from "react";
 
 function SideNavigation() {
   return (
-    <nav className="flex flex-col gap-6 items-center mt-5 lg:items-start">
+    <nav className=" max-lg:flex  min-lg:flex min-lg:flex-col gap-6 items-center min-lg:mt-5 lg:items-start">
       {navlinks.map((item) => {
         return (
           <Link
