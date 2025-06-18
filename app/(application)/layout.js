@@ -34,7 +34,7 @@ export const metadata = {
     siteName: "DailyDone",
     images: [
       {
-        url: "https://athulcoder.github.io/assets/athulsabu--_Sm7nK8.jpg",
+        url: "https://raw.githubusercontent.com/athulcoder/dailydone/refs/heads/main/public/logo.png",
         width: 1200,
         height: 630,
         alt: "Screenshot of DailyDone – Made in India",
@@ -47,7 +47,9 @@ export const metadata = {
     card: "summary_large_image",
     title: "DailyDone",
     description: "Your clean, daily productivity companion  by Athul Sabu.",
-    images: ["https://athulcoder.github.io/assets/athulsabu--_Sm7nK8.jpg"],
+    images: [
+      "https://raw.githubusercontent.com/athulcoder/dailydone/refs/heads/main/public/logo.png",
+    ],
     creator: "@athulcoder",
   },
   icons: {
