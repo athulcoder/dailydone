@@ -47,8 +47,7 @@ export default function RegisterPage() {
     if (formData.password.length < 6) {
       setError("weak password used");
       setLoading(false);
-    }
-    if (formData.username.length < 3) {
+    } else if (formData.username.length < 3) {
       setError("username should have atleast 3 characters");
       setLoading(false);
     } else {
