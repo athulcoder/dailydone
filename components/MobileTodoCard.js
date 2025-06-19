@@ -22,9 +22,9 @@ function MobileTodoCard({ todo }) {
   if (editBoxOpen)
     return <EditBox onClose={() => setEditBoxOpen(false)} initialData={todo} />;
   return (
-    <div className="bg-white p-4 rounded-xl shadow border border-gray-200 space-y-2">
+    <div className="bg-card-bg p-4 rounded-xl shadow border border-border-primary space-y-2">
       <div className="flex justify-between items-center">
-        <h2 className="text-lg font-semibold">{title}</h2>
+        <h2 className="text-lg font-semibold text-text-primary">{title}</h2>
         <input
           type="checkbox"
           checked={isDone}
@@ -33,9 +33,9 @@ function MobileTodoCard({ todo }) {
         />
       </div>
 
-      <p className="text-sm text-gray-600">{description}</p>
+      <p className="text-sm text-text-secondary">{description}</p>
 
-      <div className="flex justify-between items-center text-sm text-gray-500">
+      <div className="flex justify-between items-center text-sm text-text-third">
         <span className="flex gap-2 items-center">
           <LucideAlarmClockCheck className="text-green-700" /> {timeNeed}
           {timeNeed <= 1 ? " hour" : " hours"}{" "}
@@ -45,7 +45,7 @@ function MobileTodoCard({ todo }) {
             isDone ? "text-green-600" : "text-orange-500 cursor-pointer"
           }
         >
-          {isDone ? "✅ Done" : "⌛ Pending"}
+          {isDone ? " Done" : "⌛ Pending"}
         </span>
       </div>
 

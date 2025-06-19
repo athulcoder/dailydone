@@ -21,11 +21,6 @@ const navlinks = [
   },
 
   {
-    title: "Add new",
-    href: "/",
-    icon: <CirclePlus />,
-  },
-  {
     title: "Settings",
     href: "/settings",
     icon: <Settings />,
@@ -38,15 +33,17 @@ const navlinks = [
 ];
 
 import React from "react";
+import ToggleTheme from "./ToggleTheme";
 
 function SideNavigation() {
   return (
     <nav className=" max-lg:flex  min-lg:flex min-lg:flex-col gap-6 items-center min-lg:mt-5 lg:items-start">
+      <ToggleTheme />
       {navlinks.map((item) => {
         return (
           <Link
             href={item.href}
-            className="flex gap-2 hover:bg-[#f4f3f3] w-full p-3 rounded-2xl  "
+            className="flex gap-2 hover:bg-hover-nav w-full p-3 rounded-2xl  "
             key={item.title}
           >
             {item.icon}
@@ -57,7 +54,7 @@ function SideNavigation() {
 
       <button
         onClick={handlelogout}
-        className="flex gap-2 hover:bg-[#f4f3f3] w-full p-3 rounded-2xl cursor-pointer "
+        className="flex gap-2 hover:bg-hover-nav w-full p-3 rounded-2xl cursor-pointer "
         key="logout"
       >
         <LogOutIcon />
