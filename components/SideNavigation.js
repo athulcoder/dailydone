@@ -20,16 +20,16 @@ const navlinks = [
     icon: <House />,
   },
 
-  {
-    title: "Settings",
-    href: "/settings",
-    icon: <Settings />,
-  },
-  {
-    title: "Profile",
-    href: "/profile",
-    icon: <UserCircle2 />,
-  },
+  // {
+  //   title: "Settings",
+  //   href: "/settings",
+  //   icon: <Settings />,
+  // },
+  // {
+  //   title: "Profile",
+  //   href: "/profile",
+  //   icon: <UserCircle2 />,
+  // },
 ];
 
 import React from "react";
