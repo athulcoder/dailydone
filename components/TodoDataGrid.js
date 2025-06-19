@@ -4,6 +4,7 @@ import TodoDataCard from "./TodoDataCard";
 import { useTodos } from "@/contexts/todoProvider";
 import Calendar from "./Calender";
 import AddNewTodo from "./AddNewTodo";
+import { PlusIcon } from "lucide-react";
 
 function TodoDataGrid() {
   const { todos, deleteTodo } = useTodos();
@@ -43,8 +44,15 @@ function TodoDataGrid() {
         <TodoDataCard name="Pending" count={pendingTodo} />
         <TodoDataCard name="Completed" count={completedTodo} />
         <TodoDataCard name="Time Needed (hours)" count={remainingTime} />
-        <button onClick={handleAddnew} className="cursor-pointer ">
-          <TodoDataCard name="Add new" count="+" />
+        <button
+          onClick={handleAddnew}
+          className="  w-[120px] h-[120px] flex items-center justify-center "
+        >
+          <div className="cursor-pointer w-[80px] h-[80px] rounded-2xl flex flex-col items-center justify-center shadow-md hover:shadow-xl transition duration-300 ease-in-out bg-gradient-to-r from-purple-600  to-blue-500 text-white">
+            <span className="text-2xl text-white font-extrabold ">
+              <PlusIcon />
+            </span>
+          </div>
         </button>
       </div>
 

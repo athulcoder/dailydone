@@ -103,7 +103,7 @@ function DashBoardClient({ user }) {
               <span>Set a task for you to complete</span>
               <button
                 onClick={handleAddNewTodo}
-                className="bg-gradient-to-r from-purple-600 cursor-pointer to-blue-500 text-white font-medium px-6 py-2 mt-5 rounded-full shadow-md hover:shadow-lg hover:brightness-110 transition duration-300"
+                className="bg-gradient-to-r from-purple-600 cursor-pointer to-blue-500 text-white font-medium px-8 py-4 mt-5 rounded-full shadow-md hover:shadow-lg hover:brightness-110 transition duration-300"
               >
                 Add your Todo
               </button>
