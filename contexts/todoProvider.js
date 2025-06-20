@@ -20,17 +20,14 @@ export function TodoProvider({ children }) {
   }, []);
 
   const deleteTodo = async (_id) => {
+    // for better your experience first changing the state then sending patch request to server
+    setTodos((prev) => prev.filter((todo) => todo._id !== _id));
     const res = await fetch(`/api/todos?tid=${_id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
     });
-
-    const { success, message } = await res.json();
-    if (success) {
-      setTodos((prev) => prev.filter((todo) => todo._id !== _id));
-    }
   };
 
   const editTodo = async (todo) => {
