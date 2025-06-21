@@ -54,10 +54,8 @@ export default function ProfileClient({ user }) {
         if (data.success) {
           setAvatar(data.avatarUrl);
           setPreviewUrl("");
-
-          router.refresh();
         } else {
-          console.log("error");
+          console.log(data.message);
         }
       } catch (error) {
         console.log(error);
