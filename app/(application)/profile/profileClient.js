@@ -50,9 +50,7 @@ export default function ProfileClient({ user }) {
         });
 
         const data = await res.json();
-        console.log("dadada", data.success, data.message);
         if (data.success) {
-          console.log("Inside if block");
           setAvatar(data.avatarUrl);
           setPreviewUrl("");
         } else {
@@ -148,7 +146,7 @@ export default function ProfileClient({ user }) {
   );
 
   return (
-    <div className="min-h-screen w-full px-4 py-8 md:px-16 md:py-12 text-text-primary">
+    <div className="min-h-screen w-full px-4 py-8 md:px-16 md:py-8 text-text-primary pb-[120px]">
       <div className="max-w-5xl mx-auto space-y-8">
         {/* Header */}
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -163,7 +161,7 @@ export default function ProfileClient({ user }) {
           <div className="relative w-24 h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-text-secondary">
             {previewUrl === "loading" ? (
               <>
-                <div className="object-cover bg-yellow-200">uploading</div>
+                <div className="w-full h-full animate-pulse bg-gradient-to-r from-pink-200 via-purple-200 to-blue-200" />
               </>
             ) : previewUrl ? (
               <Image
@@ -173,7 +171,12 @@ export default function ProfileClient({ user }) {
                 className="object-cover"
               />
             ) : (
-              <Image src={avatar} alt="Profile" fill className="object-cover" />
+              <Image
+                src={avatar == "default" ? "/user.png" : avatar}
+                alt="Profile"
+                fill
+                className="object-cover"
+              />
             )}
           </div>
           <div>
@@ -188,7 +191,12 @@ export default function ProfileClient({ user }) {
               className="mt-3 text-sm text-blue-600 hover:underline hidden"
             />
             {previewUrl === "loading" ? (
-              <div>uploading</div>
+              <div className="text-sm text-text-third flex items-center space-x-1">
+                <span>Uploading</span>
+                <span className="animate-bounce">.</span>
+                <span className="animate-bounce [animation-delay:0.2s]">.</span>
+                <span className="animate-bounce [animation-delay:0.4s]">.</span>
+              </div>
             ) : previewUrl ? (
               <div className="flex gap-3 mt-2">
                 <button
