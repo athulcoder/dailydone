@@ -59,6 +59,8 @@ export default function ProfileClient({ user }) {
         }
       } catch (error) {
         console.log(error);
+        setAvatar(user.avatar);
+        setPreviewUrl("");
       }
     }
   };
