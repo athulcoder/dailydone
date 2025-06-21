@@ -38,17 +38,14 @@ export async function POST(req) {
     const buffer = Buffer.from(bytes);
 
     const tempFilename = `${crypto.randomUUID()}-${file.name}`;
-    const tempDir = path.join(process.cwd(), "uploads", "temp");
-
-    // this will create a folder called uploads/temp and if already exists it will skip this step
-    await mkdir(tempDir, { recursive: true });
+    const tempDir = "/tmp"; // Writable on Vercel
 
     const filePath = path.join(tempDir, tempFilename);
 
     await writeFile(filePath, buffer);
     const result = await uploadToCloudinary(filePath);
 
-    await unlink(filePath);
+    await unlink(filePath); // clean up temp file
     const avatar = result.secure_url;
 
     console.log(currentUser);
