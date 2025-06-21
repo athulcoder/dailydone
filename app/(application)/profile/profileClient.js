@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Edit2 } from "lucide-react";
 import { getUserProfile } from "@/lib/userProfile";
 import { convertDateforUser } from "@/utils/formatDate";
+import { useRouter } from "next/navigation";
 
 export default function ProfileClient({ user }) {
   const [avatar, setAvatar] = useState(user.avatar);
@@ -53,6 +54,8 @@ export default function ProfileClient({ user }) {
         if (data.success) {
           setAvatar(data.avatarUrl);
           setPreviewUrl("");
+
+          router.refresh();
         } else {
           console.log("error");
         }

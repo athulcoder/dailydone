@@ -4,7 +4,7 @@ import { getTodaysDate } from "@/utils/formatDate";
 import Image from "next/image";
 
 async function TopNavigation() {
-  const { username, fullName } = await fetchUser();
+  const { username, fullName, avatar } = await fetchUser();
 
   return (
     <div className=" max-lg:h-[60px] max-lg:px-3 w-full flex max-lg:justify-between items-center py-3  fixed top-0 z-50 bg-bg-secondary text-text-primary">
@@ -32,13 +32,15 @@ async function TopNavigation() {
             @{username}
           </span>
         </p>
-        <Image
-          src="/user.png"
-          alt=""
-          width={40}
-          height={40}
-          className="rounded-full ml-3"
-        />
+        <div className="relative w-[40px] h-[40px] min-lg:w-[45px] min-lg:h-[45px] rounded-full overflow-hidden border-1 border-loading-card-text ml-3">
+          <Image
+            src={avatar === "defualt" ? "/user.png" : avatar}
+            alt=""
+            width={45}
+            height={45}
+            className="rounded-full "
+          />
+        </div>
       </div>
     </div>
   );

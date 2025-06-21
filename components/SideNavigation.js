@@ -25,11 +25,11 @@ const navlinks = [
   //   href: "/settings",
   //   icon: <Settings />,
   // },
-  // {
-  //   title: "Profile",
-  //   href: "/profile",
-  //   icon: <UserCircle2 />,
-  // },
+  {
+    title: "Profile",
+    href: "/profile",
+    icon: <UserCircle2 />,
+  },
 ];
 
 import React from "react";

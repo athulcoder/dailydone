@@ -4,12 +4,19 @@ import { redirect } from "next/navigation";
 
 export async function fetchUser() {
   const cookieStore = await cookies();
-  const token = cookieStore.get("sessionid")?.value;
+  const sessionid = cookieStore.get("sessionid")?.value;
 
-  if (!token) redirect("/");
-  const decoded = await verifyToken(token);
+  const res = await fetch("http://localhost:3000/api/user", {
+    headers: {
+      Cookie: `sessionid=${sessionid}`,
+    },
+  });
 
-  if (!decoded) redirect("/login");
+  const data = await res.json();
 
-  return decoded;
+  if (!data.success) return;
+
+  const user = data.data;
+
+  return user;
 }
