@@ -37,15 +37,11 @@ export async function POST(req) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const tempFilename = `${crypto.randomUUID()}-${file.name}`;
-    const tempDir = "/tmp"; // Writable on Vercel
+    const filename = `${crypto.randomUUID()}-${file.name}`;
 
-    const filePath = path.join(tempDir, tempFilename);
+    // Direcly uploads to cloudinary
+    const result = await uploadToCloudinary(buffer, filename);
 
-    await writeFile(filePath, buffer);
-    const result = await uploadToCloudinary(filePath);
-
-    await unlink(filePath); // clean up temp file
     const avatar = result.secure_url;
 
     console.log(currentUser);
@@ -54,13 +50,14 @@ export async function POST(req) {
       { avatar },
       { new: true, lean: true }
     );
-    console.log(updatedUser);
+
+    const { password, _v, ...safeUser } = updatedUser;
 
     return NextResponse.json({
       success: true,
       message: "file uploaded",
       avatarUrl: result.secure_url,
-      user: updatedUser,
+      user: safeUser,
     });
   } catch (error) {
     return NextResponse.json({ success: false, message: error });

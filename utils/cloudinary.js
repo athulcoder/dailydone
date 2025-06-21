@@ -1,5 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
-import path from "path";
+import { Readable } from "stream";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -7,19 +7,30 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export async function uploadToCloudinary(localPath, folder = "profile-pics") {
-  const filename = path.basename(localPath, path.extname(localPath)); // '3478e1a1-avatar'
+function bufferToStream(buffer) {
+  return Readable.from(buffer);
+}
 
-  try {
-    const result = await cloudinary.uploader.upload(localPath, {
-      folder,
-      public_id: filename,
-      overwrite: false,
-    });
+export async function uploadToCloudinary(
+  buffer,
+  filename,
+  folder = "profile-pics"
+) {
+  const result = await new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder,
+        public_id: filename,
+        overwrite: false,
+      },
+      (error, result) => {
+        if (error) return reject(error);
+        resolve(result);
+      }
+    );
 
-    return result;
-  } catch (error) {
-    console.error("Cloudinary upload failed:", error);
-    throw error;
-  }
+    bufferToStream(buffer).pipe(stream);
+  });
+
+  return result;
 }
