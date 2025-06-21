@@ -21,7 +21,7 @@ export default function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    console.log(formData);
+
     if (formData.password.length < 6) {
       setError("Password is invalid ");
       setLoading(false);

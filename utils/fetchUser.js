@@ -7,8 +7,9 @@ export async function fetchUser() {
   const sessionid = cookieStore.get("sessionid")?.value;
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
-  const res = await fetch(`${baseUrl}/api/user`, {
+  const reqUrl = `${baseUrl}/api/user`;
+  console.log(reqUrl);
+  const res = await fetch(reqUrl, {
     headers: {
       Cookie: `sessionid=${sessionid}`,
     },
