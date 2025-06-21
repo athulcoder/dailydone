@@ -34,7 +34,7 @@ async function TopNavigation() {
         </p>
         <div className="relative w-[40px] h-[40px] min-lg:w-[45px] min-lg:h-[45px] rounded-full overflow-hidden border-1 border-loading-card-text ml-3">
           <Image
-            src={avatar === "defualt" ? "/user.png" : avatar}
+            src={avatar === "default" ? "/user.png" : avatar}
             alt=""
             width={45}
             height={45}
