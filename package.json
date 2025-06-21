@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.7.0",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.13",
     "jose": "^6.0.11",
