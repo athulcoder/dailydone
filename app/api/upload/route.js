@@ -37,7 +37,7 @@ export async function POST(req) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    const filename = `${crypto.randomUUID()}-${file.name}`;
+    const filename = `${currentUser.username}${path.extname(file.name)}`;
 
     // Direcly uploads to cloudinary
     const result = await uploadToCloudinary(buffer, filename);

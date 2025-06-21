@@ -21,7 +21,15 @@ export async function uploadToCloudinary(
       {
         folder,
         public_id: filename,
-        overwrite: false,
+        overwrite: true,
+        transformation: [
+          {
+            width: 500,
+            height: 500,
+            crop: "fill",
+            gravity: "face",
+          },
+        ],
       },
       (error, result) => {
         if (error) return reject(error);
