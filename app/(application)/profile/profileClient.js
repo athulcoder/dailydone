@@ -7,8 +7,11 @@ import { getUserProfile } from "@/lib/userProfile";
 import { convertDateforUser } from "@/utils/formatDate";
 import { useRouter } from "next/navigation";
 import { saveUserChanges } from "@/utils/editUserData";
+import { useToast } from "@/contexts/toastProvider";
+import { handlelogout } from "@/utils/logout";
 
 export default function ProfileClient({ user }) {
+  const { showToast } = useToast();
   const [avatar, setAvatar] = useState(user.avatar);
   const [name, setName] = useState(user.fullName);
   const [username, setUsername] = useState(user.username);
@@ -55,11 +58,22 @@ export default function ProfileClient({ user }) {
         if (data.success) {
           setAvatar(data.avatarUrl);
           setPreviewUrl("");
+          showToast({
+            message: "Profile pic updated",
+            type: "success",
+          });
         } else {
-          console.log(data.message);
+          showToast({
+            message: data.message,
+            type: "error",
+          });
         }
       } catch (error) {
-        console.log(error);
+        showToast({
+          message: "Something went wrong",
+          type: "error",
+        });
+
         setAvatar(user.avatar);
         setPreviewUrl("");
       }
@@ -72,12 +86,20 @@ export default function ProfileClient({ user }) {
   };
 
   const saveChange = async (setValue) => {
-    setValue(tempValue);
     console.log(editingField, tempValue);
-    if (editingField || tempValue) {
+    if (tempValue) {
+      setValue(tempValue);
       const data = await saveUserChanges(editingField, tempValue);
       console.log(data);
+      showToast({
+        message: data.message,
+        type: "success",
+      });
     } else {
+      showToast({
+        message: "field cannot be empty",
+        type: "error",
+      });
     }
 
     setEditingField(null);
@@ -104,7 +126,7 @@ export default function ProfileClient({ user }) {
             <select
               value={tempValue}
               onChange={(e) => setTempValue(e.target.value)}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+              className="w-full px-4 py-2 border bg-bg-secondary rounded-lg"
               autoFocus
             >
               {options.map((opt) => (
@@ -130,13 +152,13 @@ export default function ProfileClient({ user }) {
           <div className="flex gap-3 mt-2">
             <button
               onClick={() => saveChange(setValue)}
-              className="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm px-4 py-1.5 rounded-lg"
+              className="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm px-4 py-1.5 rounded-lg cursor-pointer"
             >
               Save
             </button>
             <button
               onClick={cancelChange}
-              className="text-sm text-gray-600 px-4 py-1.5 border border-gray-300 rounded-lg"
+              className="text-sm text-gray-600 px-4 py-1.5 border border-gray-300 rounded-lg cursor-pointer "
             >
               Cancel
             </button>
@@ -162,7 +184,10 @@ export default function ProfileClient({ user }) {
         {/* Header */}
         <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
           <h1 className="text-2xl font-bold">Your Profile</h1>
-          <button className="border border-red-500 text-red-500 px-4 py-1.5 text-sm md:text-base md:px-5 md:py-2 rounded-xl">
+          <button
+            className="border border-red-500 text-red-500 px-4 py-1.5 text-sm md:text-base md:px-5 md:py-2 rounded-xl cursor-pointer hover:bg-red-500 hover:text-white"
+            onClick={handlelogout}
+          >
             Logout
           </button>
         </div>

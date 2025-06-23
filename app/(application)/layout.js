@@ -4,6 +4,7 @@ import Image from "next/image";
 import SideNavigation from "@/components/SideNavigation";
 import TopNavigation from "@/components/TopNavigation";
 import { TodoProvider } from "@/contexts/todoProvider";
+import { ToastProvider } from "@/contexts/toastProvider";
 
 export const metadata = {
   title: {
@@ -59,35 +60,37 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <div className="flex  flex-col-reverse  lg:flex-row xl:flex-row h-screen w-full  bg-bg">
-      {/* Left  in large screens and it is bottom in mobile devices */}
-      <div className="  max-lg:items-center  max-lg:justify-center max-lg:flex max-lg:flex-row-reverse max-lg:w-full max-lg:h-[60px] max-lg:fixed max-lg:bottom-0 max-lg:left-0 max-lg:z-50 max-lg:shadow-[0_-4px_6px_-4px_rgba(0,0,0,0.1)] lg:block xl:block lg:w-[15%] xl:w-[12%] lg:h-screen xl:h-screen p-2 min-lg:shadow-[4px_0_10px_-4px_rgba(0,0,0,0.1)] bg-bg-secondary text-text-primary">
-        <Link
-          href="/"
-          className="flex gap-3 items-center justify-center lg:justify-start xl:justify-start"
-        >
-          <Image
-            src="/logo.png"
-            alt=""
-            width={40}
-            height={40}
-            className="rounded-full hidden min-lg:block"
-          />
-          <span className="text-md font-bold text-text-primary hidden lg:block xl:block ">
-            DailyDone
-          </span>
-        </Link>
+    <ToastProvider>
+      <div className="flex  flex-col-reverse  lg:flex-row xl:flex-row h-screen w-full  bg-bg">
+        {/* Left  in large screens and it is bottom in mobile devices */}
+        <div className="  max-lg:items-center  max-lg:justify-center max-lg:flex max-lg:flex-row-reverse max-lg:w-full max-lg:h-[60px] max-lg:fixed max-lg:bottom-0 max-lg:left-0 max-lg:z-50 max-lg:shadow-[0_-4px_6px_-4px_rgba(0,0,0,0.1)] lg:block xl:block lg:w-[15%] xl:w-[12%] lg:h-screen xl:h-screen p-2 min-lg:shadow-[4px_0_10px_-4px_rgba(0,0,0,0.1)] bg-bg-secondary text-text-primary">
+          <Link
+            href="/"
+            className="flex gap-3 items-center justify-center lg:justify-start xl:justify-start"
+          >
+            <Image
+              src="/logo.png"
+              alt=""
+              width={40}
+              height={40}
+              className="rounded-full hidden min-lg:block"
+            />
+            <span className="text-md font-bold text-text-primary hidden lg:block xl:block ">
+              DailyDone
+            </span>
+          </Link>
 
-        <SideNavigation />
-      </div>
+          <SideNavigation />
+        </div>
 
-      {/* Right */}
-      <div className="max-lg:flex max-lg:flex-col max-lg:justify-between  w-full lg:w-[85%] xl:w-[88%]  h-screen lg:overflow-scroll xl:overflow-scroll ">
-        <TopNavigation />
-        <div className="max-lg:pb-[60px] pt-[80px] bg-bg min-h-screen">
-          {children}
+        {/* Right */}
+        <div className="max-lg:flex max-lg:flex-col max-lg:justify-between  w-full lg:w-[85%] xl:w-[88%]  h-screen lg:overflow-scroll xl:overflow-scroll ">
+          <TopNavigation />
+          <div className="max-lg:pb-[60px] pt-[80px] bg-bg min-h-screen">
+            {children}
+          </div>
         </div>
       </div>
-    </div>
+    </ToastProvider>
   );
 }

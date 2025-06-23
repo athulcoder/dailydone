@@ -72,7 +72,7 @@ export async function PUT(req) {
 
   return NextResponse.json({
     success: true,
-    message: `User's ${field} updated`,
+    message: `${field} updated`.toLowerCase(),
     data: safeUser,
   });
 }
