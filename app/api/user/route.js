@@ -1,7 +1,7 @@
 import { verifyToken } from "@/lib/auth";
 import { connectDB } from "@/lib/db";
 import { User } from "@/models/user.model";
-import { verify } from "jsonwebtoken";
+
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
@@ -47,4 +47,32 @@ export async function GET(req) {
       { status: 500 }
     );
   }
+}
+
+export async function PUT(req) {
+  const cookieStore = cookies();
+  const sessionid = (await cookieStore).get("sessionid")?.value;
+
+  if (!sessionid)
+    return NextResponse.json({ success: false, message: "User not found" });
+
+  // using sessionid we are getting the users email
+  const { field, value } = await req.json();
+
+  // dynamic update object
+  const update = { [field]: value };
+
+  const { email } = await verifyToken(sessionid);
+
+  const updatedUser = await User.findOneAndUpdate({ email }, update, {
+    new: true,
+  }).lean();
+
+  const { password, _v, ...safeUser } = updatedUser;
+
+  return NextResponse.json({
+    success: true,
+    message: `User's ${field} updated`,
+    data: safeUser,
+  });
 }

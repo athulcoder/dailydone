@@ -6,6 +6,7 @@ import { Edit2 } from "lucide-react";
 import { getUserProfile } from "@/lib/userProfile";
 import { convertDateforUser } from "@/utils/formatDate";
 import { useRouter } from "next/navigation";
+import { saveUserChanges } from "@/utils/editUserData";
 
 export default function ProfileClient({ user }) {
   const [avatar, setAvatar] = useState(user.avatar);
@@ -70,8 +71,15 @@ export default function ProfileClient({ user }) {
     setTempValue(currentValue);
   };
 
-  const saveChange = (setValue) => {
+  const saveChange = async (setValue) => {
     setValue(tempValue);
+    console.log(editingField, tempValue);
+    if (editingField || tempValue) {
+      const data = await saveUserChanges(editingField, tempValue);
+      console.log(data);
+    } else {
+    }
+
     setEditingField(null);
   };
 
@@ -231,7 +239,7 @@ export default function ProfileClient({ user }) {
           <h3 className="font-semibold text-lg text-text-secondary">
             Basic Info
           </h3>
-          {renderField("Full Name", "name", name, setName)}
+          {renderField("Full Name", "fullName", name, setName)}
           {renderField("Username", "username", username, setUsername)}
           <div>
             <label className="block text-sm text-text-secondary mb-1">
