@@ -101,9 +101,10 @@ export default function ProfileClient({ user }) {
   const saveChange = async (setValue) => {
     if (tempValue) {
       setValue(tempValue);
-
-      const data = await saveUserChanges(editingField, tempValue);
+      const tempField = editingField;
       setEditingField(null);
+      const data = await saveUserChanges(tempField, tempValue);
+
       showToast({
         message: data.message,
         type: "success",
