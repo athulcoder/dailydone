@@ -141,7 +141,7 @@ export default function ProfileClient({ user }) {
               autoFocus
             >
               {options.map((opt) => (
-                <option key={opt} value={opt}>
+                <option key={opt} value={opt === "select" ? "" : opt}>
                   {opt}
                 </option>
               ))}
@@ -296,6 +296,7 @@ export default function ProfileClient({ user }) {
           <div className="grid md:grid-cols-2 gap-6">
             {renderField("Phone", "phone", phone, setPhone)}
             {renderField("Gender", "gender", gender, setGender, "select", [
+              "select",
               "male",
               "female",
               "other",
