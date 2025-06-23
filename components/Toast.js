@@ -6,9 +6,9 @@ import { CheckCircle, XCircle, Info } from "lucide-react";
 import clsx from "clsx";
 
 const icons = {
-  success: <CheckCircle className="text-green-500 w-5 h-5" />,
-  error: <XCircle className="text-red-500 w-5 h-5" />,
-  info: <Info className="text-blue-500 w-5 h-5" />,
+  success: <CheckCircle className="text-green-800 w-5 h-5" />,
+  error: <XCircle className="text-red-800 w-5 h-5" />,
+  info: <Info className="text-blue-800 w-5 h-5" />,
 };
 
 export default function Toast({

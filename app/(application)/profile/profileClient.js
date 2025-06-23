@@ -9,8 +9,10 @@ import { useRouter } from "next/navigation";
 import { saveUserChanges } from "@/utils/editUserData";
 import { useToast } from "@/contexts/toastProvider";
 import { handlelogout } from "@/utils/logout";
+import { handleUsernameCheck } from "@/utils/usernameCheck";
 
 export default function ProfileClient({ user }) {
+  const [usernameExist, setUsernameExist] = useState(false);
   const { showToast } = useToast();
   const [avatar, setAvatar] = useState(user.avatar);
   const [name, setName] = useState(user.fullName);
@@ -85,12 +87,23 @@ export default function ProfileClient({ user }) {
     setTempValue(currentValue);
   };
 
+  const handleUsernameEdit = async (value) => {
+    const data = await handleUsernameCheck(value);
+    // checks whether username exists already or not .
+    // if already exists it will make the save button disabled
+    if (data.success) setUsernameExist(false);
+    else {
+      setUsernameExist(true);
+      showToast({ message: "username already exists", type: "error" });
+    }
+  };
+
   const saveChange = async (setValue) => {
-    console.log(editingField, tempValue);
     if (tempValue) {
       setValue(tempValue);
+
       const data = await saveUserChanges(editingField, tempValue);
-      console.log(data);
+      setEditingField(null);
       showToast({
         message: data.message,
         type: "success",
@@ -101,8 +114,6 @@ export default function ProfileClient({ user }) {
         type: "error",
       });
     }
-
-    setEditingField(null);
   };
 
   const cancelChange = () => {
@@ -139,11 +150,13 @@ export default function ProfileClient({ user }) {
             <input
               type={type}
               value={tempValue}
-              onChange={(e) =>
+              onChange={(e) => {
                 setTempValue(
                   type === "number" ? +e.target.value : e.target.value
-                )
-              }
+                );
+                if (fieldName === "username")
+                  handleUsernameEdit(e.target.value);
+              }}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg"
               autoFocus
             />
@@ -151,6 +164,7 @@ export default function ProfileClient({ user }) {
 
           <div className="flex gap-3 mt-2">
             <button
+              disabled={usernameExist && fieldName === "username"}
               onClick={() => saveChange(setValue)}
               className="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm px-4 py-1.5 rounded-lg cursor-pointer"
             >
