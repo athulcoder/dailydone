@@ -56,17 +56,20 @@ export async function PUT(req) {
   if (!sessionid)
     return NextResponse.json({ success: false, message: "User not found" });
 
+  await connectDB();
   // using sessionid we are getting the users email
   const { field, value } = await req.json();
 
   // dynamic update object
-  const update = { [field]: value };
+  const update = { $set: { [field]: value } };
 
   const { email } = await verifyToken(sessionid);
 
   const updatedUser = await User.findOneAndUpdate({ email }, update, {
     new: true,
   }).lean();
+
+  console.log(updatedUser, update);
 
   const { password, _v, ...safeUser } = updatedUser;
 

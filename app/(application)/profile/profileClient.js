@@ -18,10 +18,10 @@ export default function ProfileClient({ user }) {
   const [name, setName] = useState(user.fullName);
   const [username, setUsername] = useState(user.username);
   const [email] = useState(user.email);
-  const [phone, setPhone] = useState(user.phone);
-  const [gender, setGender] = useState(user.gender);
-  const [age, setAge] = useState(user.age);
-  const [themeDark, setThemeDark] = useState(false);
+  const [phone, setPhone] = useState(user.phone || "");
+  const [gender, setGender] = useState(user.gender) || "";
+  const [age, setAge] = useState(user.age || "");
+
   const accountCreated = convertDateforUser(user.createdAt);
 
   const [editingField, setEditingField] = useState(null);
