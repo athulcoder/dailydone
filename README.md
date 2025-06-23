@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚀 DailyDone — Full Stack Task Management App
 
-## Getting Started
+DailyDone is a powerful and responsive full-stack web application designed to help users manage their tasks efficiently. Built with modern technologies like Next.js 15, MongoDB, and JWT Auth, it offers a smooth experience on both desktop and mobile screens.
 
-First, run the development server:
+## 🌟 Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- ✅ Full **CRUD** operations for todos
+- 📅 Filter todos by **date** and **status**
+- 👤 User **profile update** page
+- 🖼️ **Image upload** support with Cloudinary
+- 🌓 Toggle between **Dark** and **Light** modes
+- 🔐 Secure **JWT authentication** and logout
+- 📱 Fully **responsive design** for all devices
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Tech Stack
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Frontend & Backend:** [Next.js 15](https://nextjs.org/)
+- **Database:** [MongoDB](https://www.mongodb.com/) with [Mongoose](https://mongoosejs.com/)
+- **Authentication:** JWT (JSON Web Tokens)
+- **Image Storage:** [Cloudinary](https://cloudinary.com/)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Live Demo
 
-## Learn More
+Check out the live app here:  
+🔗 [https://dailydone-alpha.vercel.app](https://dailydone-alpha.vercel.app)
 
-To learn more about Next.js, take a look at the following resources:
+## 📂 Getting Started
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Prerequisites
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Node.js (v18 or higher)
+- MongoDB Atlas account
+- Cloudinary account
 
-## Deploy on Vercel
+### Installation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/athulcoder/dailydone.git
+   cd dailydone
+   ```
