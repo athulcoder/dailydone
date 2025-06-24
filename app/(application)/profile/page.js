@@ -3,9 +3,6 @@ import ProfileClient from "./profileClient";
 import { fetchUser } from "@/utils/fetchUser";
 
 export default async function ProfilePage() {
-  const cookieStore = await cookies();
-  const sessionid = cookieStore.get("sessionid")?.value;
-
   const user = await fetchUser();
   if (!user) {
     return (
