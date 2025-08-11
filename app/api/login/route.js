@@ -25,7 +25,7 @@ export async function POST(req) {
 
     if (!checkUser) {
       return NextResponse.json(
-        { success: false, message: "Password is invalid" },
+        { success: false, message: "Password is invalid !" },
         { status: 401 }
       );
     }
